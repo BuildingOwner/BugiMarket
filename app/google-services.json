@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "564658580642",
+    "project_id": "bugimarket-5492c",
+    "storage_bucket": "bugimarket-5492c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564658580642:android:4cef37834dd3aa105fbbfb",
+        "android_client_info": {
+          "package_name": "com.example.bugimarket"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYoCN7zfjsowi68ZxySXnaF_nPEIOZ374"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
