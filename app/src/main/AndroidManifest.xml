@@ -23,6 +23,7 @@
         </activity>
         <activity android:name="com.example.bugimarket.auth.LoginActivity"></activity>
         <activity android:name="com.example.bugimarket.auth.SignUpActivity"></activity>
+        <activity android:name="com.example.bugimarket.HomeActivity"></activity>
     </application>
 
 </manifest>
