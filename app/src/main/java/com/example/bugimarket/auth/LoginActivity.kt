@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.bugimarket.HomeActivity
 import com.example.bugimarket.MainActivity
 import com.example.bugimarket.R
 import com.google.firebase.Firebase
@@ -34,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { // it: Task<AuthResult!>
                 if (it.isSuccessful) {
                     startActivity(
-                        Intent(this, MainActivity::class.java)
+                        Intent(this, HomeActivity::class.java)
                     )
                     finish()
                 } else {

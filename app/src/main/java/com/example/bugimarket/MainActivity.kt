@@ -29,20 +29,10 @@ class MainActivity : AppCompatActivity() {
 
         val uid = Firebase.auth.currentUser?.uid
         if (uid != null) {
-            val docRef = users.document(uid)
-            docRef.get().addOnSuccessListener { document ->
-                if (document != null) {
-                    val name = document.getString("name")
-                    val birthDay = document.getString("birthDay")
-                    // 이제 name과 birthDay를 사용할 수 있습니다.
-                    findViewById<TextView>(R.id.userName)?.text = name
-                    findViewById<TextView>(R.id.userBirthDay)?.text = birthDay
-                } else {
-                    Log.d("MainActivity", "No such document")
-                }
-            }.addOnFailureListener { exception ->
-                Log.d("MainActivity", "get failed with ", exception)
-            }
+            startActivity(
+                Intent(this, HomeActivity::class.java)
+            )
+            finish()
         }
 
         findViewById<Button>(R.id.button_signout)?.setOnClickListener {

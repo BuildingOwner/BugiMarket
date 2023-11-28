@@ -15,7 +15,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:hint ="ID"/>
+        android:hint ="ID"
+        android:textColorHint="#aaa"/>
 
     <EditText
         android:id="@+id/password"
@@ -27,7 +28,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username"
-        android:hint ="Password"/>
+        android:hint ="Password"
+        android:textColorHint="#aaa"/>
 
     <Button
         android:id="@+id/login"

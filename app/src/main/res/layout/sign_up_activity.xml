@@ -15,7 +15,8 @@
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColorHint="#aaa"/>
 
     <EditText
         android:id="@+id/signUpEmail"
@@ -28,7 +29,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signUpName" />
+        app:layout_constraintTop_toBottomOf="@+id/signUpName"
+        android:textColorHint="#aaa"/>
 
     <EditText
         android:id="@+id/signUpPassword"
