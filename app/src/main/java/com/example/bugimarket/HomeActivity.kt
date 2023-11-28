@@ -1,6 +1,7 @@
 package com.example.bugimarket
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
@@ -91,6 +92,11 @@ class HomeActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error getting documents.", exception)
             }
+
+        findViewById<Button>(R.id.addItemBtn)?.setOnClickListener {
+            val intent = Intent(this@HomeActivity, ProductRegistrationActivity::class.java)
+            startActivity(intent)
+        }
 
         // 로그아웃
         findViewById<Button>(R.id.signOutBtn)?.setOnClickListener {

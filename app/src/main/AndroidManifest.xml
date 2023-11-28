@@ -27,7 +27,8 @@
         <activity android:name="com.example.bugimarket.SendMessageActivity"></activity>
         <activity android:name="com.example.bugimarket.ViewMessageActivity"></activity>
         <activity android:name="com.example.bugimarket.ProductCorrectionActivity"></activity>
-        <activity android:name="com.example.bugimarket.ProductRegistrationActivity"></activity>
+        <activity android:name="com.example.bugimarket.ProductRegistrationActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" ></activity>
         <activity android:name="com.example.bugimarket.ProductViewActivity"></activity>
     </application>
 
