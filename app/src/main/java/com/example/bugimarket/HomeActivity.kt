@@ -33,7 +33,6 @@ class ListAdapter(val itemList: List<ListItem>) :
         val image: ImageView = v.findViewById(R.id.listItemImage)
     }
 
-    // (1) 아이템 레이아웃과 결합
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListAdapter.MyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.home_list_item, parent, false)
@@ -41,12 +40,10 @@ class ListAdapter(val itemList: List<ListItem>) :
         return viewHolder
     }
 
-    // (2) 리스트 내 아이템 개수
     override fun getItemCount(): Int {
         return itemList.size
     }
 
-    // (3) View에 내용 입력
     override fun onBindViewHolder(holder: ListAdapter.MyViewHolder, position: Int) {
         holder.title.text = itemList[position].title
         holder.date.text = itemList[position].date
@@ -72,7 +69,8 @@ class HomeActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = ListAdapter(itemList)
         recyclerView.adapter = adapter
-        val dividerItemDecoration = DividerItemDecoration(recyclerView.context, LinearLayoutManager(this).orientation)
+        val dividerItemDecoration =
+            DividerItemDecoration(recyclerView.context, LinearLayoutManager(this).orientation)
         recyclerView.addItemDecoration(dividerItemDecoration)
 
         val db = FirebaseFirestore.getInstance()
