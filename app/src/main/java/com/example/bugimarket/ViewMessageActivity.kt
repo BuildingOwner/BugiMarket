@@ -1,4 +1,4 @@
-package com.example.chatproject
+package com.example.bugimarket
 
 import androidx.appcompat.widget.Toolbar
 import android.os.Bundle

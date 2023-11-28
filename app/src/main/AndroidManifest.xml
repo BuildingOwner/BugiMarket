@@ -24,6 +24,11 @@
         <activity android:name="com.example.bugimarket.auth.LoginActivity"></activity>
         <activity android:name="com.example.bugimarket.auth.SignUpActivity"></activity>
         <activity android:name="com.example.bugimarket.HomeActivity"></activity>
+        <activity android:name="com.example.bugimarket.SendMessageActivity"></activity>
+        <activity android:name="com.example.bugimarket.ViewMessageActivity"></activity>
+        <activity android:name="com.example.bugimarket.ProductCorrectionActivity"></activity>
+        <activity android:name="com.example.bugimarket.ProductRegistrationActivity"></activity>
+        <activity android:name="com.example.bugimarket.ProductViewActivity"></activity>
     </application>
 
 </manifest>

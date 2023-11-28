@@ -1,4 +1,4 @@
-package hansung.ac.gomo7
+package com.example.bugimarket
 
 import android.app.Activity
 import android.content.Intent

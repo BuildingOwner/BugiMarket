@@ -1,4 +1,4 @@
-package hansung.ac.gomo7
+package com.example.bugimarket
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
