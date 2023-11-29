@@ -2,10 +2,6 @@ package com.example.bugimarket
 
 import android.content.ContentValues.TAG
 import android.content.Intent
-import android.graphics.Canvas
-import android.graphics.Rect
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.bugimarket.auth.LoginActivity
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -134,6 +131,9 @@ class HomeActivity : AppCompatActivity() {
         // 로그아웃
         findViewById<Button>(R.id.signOutBtn)?.setOnClickListener {
             Firebase.auth.signOut()
+            startActivity(
+                Intent(this, LoginActivity::class.java)
+            )
             finish()
         }
 
