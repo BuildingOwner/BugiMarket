@@ -36,6 +36,9 @@ class ProductRegistrationActivity : AppCompatActivity() {
 
         val closeButton: ImageView = findViewById(R.id.ic_close)
         closeButton.setOnClickListener {
+            val intent = Intent(this@ProductRegistrationActivity, HomeActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
             finish()
         }
 
@@ -157,6 +160,9 @@ class ProductRegistrationActivity : AppCompatActivity() {
         db.collection("items").add(data)
             .addOnSuccessListener {
                 Toast.makeText(this, "데이터 저장 완료", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@ProductRegistrationActivity, HomeActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
                 finish()    // 메인 액티비티로 돌아갑니다.
             }
             .addOnFailureListener { e ->
