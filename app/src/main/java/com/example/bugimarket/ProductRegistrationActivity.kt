@@ -46,6 +46,10 @@ class ProductRegistrationActivity : AppCompatActivity() {
         val saveButton: Button = findViewById(R.id.product_save_button)
         saveButton.setOnClickListener {
             saveDataToFirestore()
+            startActivity(
+                Intent(this, HomeActivity::class.java)
+            )
+            finish()
         }
 
         val add_image: ConstraintLayout = findViewById(R.id.add_image)

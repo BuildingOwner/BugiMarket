@@ -76,6 +76,57 @@ class HomeActivity : AppCompatActivity() {
 
         val db = FirebaseFirestore.getInstance()
 
+        // 초기 데이터 검색
+//        fetchDataFromFirestore(db)
+
+        // 실시간 업데이트를 위한 스냅샷 리스너 추가
+        db.collection("items")
+            .addSnapshotListener { snapshot, exception ->
+                if (exception != null) {
+                    Log.w(TAG, "리스닝 실패.", exception)
+                    return@addSnapshotListener
+                }
+
+                if (snapshot != null && !snapshot.isEmpty) {
+                    // 기존 데이터 지우기
+                    itemList.clear()
+
+                    // 새 데이터 처리
+                    for (document in snapshot.documents) {
+                        val title = document.getString("title") ?: ""
+                        val date = document.getString("uploadTime") ?: ""
+                        val price = document.getString("price") ?: ""
+                        val imageUrlList = document.get("images") as List<String>
+                        val imageUrl = imageUrlList.firstOrNull() ?: ""
+                        addItemToList(title, date, price, imageUrl)
+                    }
+
+                    // 어댑터에 데이터 변경 알림
+                    adapter.notifyDataSetChanged()
+                }
+            }
+
+        findViewById<Button>(R.id.addItemBtn)?.setOnClickListener {
+            val intent = Intent(this@HomeActivity, ProductRegistrationActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        // 로그아웃
+        findViewById<Button>(R.id.signOutBtn)?.setOnClickListener {
+            Firebase.auth.signOut()
+            finish()
+        }
+
+        val chatButton = findViewById<Button>(R.id.chatBtn)
+        chatButton?.setOnClickListener {
+            startActivity(
+                Intent(this@HomeActivity, ViewMessageActivity::class.java)
+            )
+        }
+    }
+
+    private fun fetchDataFromFirestore(db: FirebaseFirestore) {
         db.collection("items")
             .get()
             .addOnSuccessListener { result ->
@@ -90,27 +141,8 @@ class HomeActivity : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents.", exception)
+                Log.w(TAG, "문서 가져오기 실패.", exception)
             }
-
-        findViewById<Button>(R.id.addItemBtn)?.setOnClickListener {
-            val intent = Intent(this@HomeActivity, ProductRegistrationActivity::class.java)
-            startActivity(intent)
-        }
-
-        // 로그아웃
-        findViewById<Button>(R.id.signOutBtn)?.setOnClickListener {
-            Firebase.auth.signOut()
-            finish()
-        }
-
-        val chatButton = findViewById<Button>(R.id.chatBtn)
-        chatButton?.setOnClickListener {
-            Log.d("HomeActivity", "chatBtn clicked")
-            startActivity(
-                Intent(this@HomeActivity, ViewMessageActivity::class.java)
-            )
-        }
     }
 
     // 아이템 추가 함수
