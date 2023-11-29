@@ -8,6 +8,7 @@ import android.provider.MediaStore
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -32,12 +33,11 @@ class ProductRegistrationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_registration)
-        val toolbar: Toolbar = findViewById(R.id.product_toolbar)
-        setSupportActionBar(toolbar)
 
-        // 뒤로가기 버튼 활성화
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false) // 기본 타이틀 사용 안 함
+        val closeButton: ImageView = findViewById(R.id.ic_close)
+        closeButton.setOnClickListener {
+            finish()
+        }
 
         // Firebase Storage 레퍼런스 초기화
         storageRef = FirebaseStorage.getInstance().reference
@@ -69,19 +69,6 @@ class ProductRegistrationActivity : AppCompatActivity() {
         adapter = ImageAdapter(imageList)
         val recyclerView: RecyclerView = findViewById(R.id.recyclerview_image)
         recyclerView.adapter = adapter
-    }
-
-    // 뒤로가기 버튼 클릭 시 동작 정의
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                // 뒤로 가기 버튼이 클릭되었을 때 동작을 정의합니다.
-                // 일반적으로는 액티비티를 종료합니다.
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -152,7 +139,7 @@ class ProductRegistrationActivity : AppCompatActivity() {
         // 날짜 형식을 지정합니다.
         val format = SimpleDateFormat("yyyy/MM/dd/HH/mm/ss", Locale.getDefault())
 
-// 'format'을 사용하여 'now'를 문자열로 변환합니다.
+        // 'format'을 사용하여 'now'를 문자열로 변환합니다.
         val dateString = format.format(now)
 
         // 저장할 데이터를 생성합니다.

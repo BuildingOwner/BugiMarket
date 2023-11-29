@@ -94,6 +94,11 @@ class HomeActivity : AppCompatActivity() {
                 Log.w(TAG, "Error getting documents.", exception)
             }
 
+        findViewById<Button>(R.id.addItemBtn)?.setOnClickListener {
+            val intent = Intent(this@HomeActivity, ProductRegistrationActivity::class.java)
+            startActivity(intent)
+        }
+
         // 로그아웃
         val signOutBtn = findViewById<Button>(R.id.signOutBtn)
         signOutBtn?.setOnClickListener {
