@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.bugimarket.auth.LoginActivity
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -99,11 +100,19 @@ class HomeActivity : AppCompatActivity() {
         }
 
         // 로그아웃
-        findViewById<Button>(R.id.signOutBtn)?.setOnClickListener {
+        val signOutBtn = findViewById<Button>(R.id.signOutBtn)
+        signOutBtn?.setOnClickListener {
             Firebase.auth.signOut()
             finish()
         }
 
+        val chatButton = findViewById<Button>(R.id.chatBtn)
+        chatButton?.setOnClickListener {
+            Log.d("HomeActivity", "chatBtn clicked")
+            startActivity(
+                Intent(this@HomeActivity, ViewMessageActivity::class.java)
+            )
+        }
 
     }
 
