@@ -23,7 +23,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class ListItem(val title: String, val date: String, val price: String, val imageUrl: String)
+class ListItem(val title: String, val date: String, val price: String, val imageUrl: String, val documentId: String)
 class ListAdapter(val itemList: List<ListItem>) :
     RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
@@ -76,8 +76,6 @@ class HomeActivity : AppCompatActivity() {
 
         val db = FirebaseFirestore.getInstance()
 
-        // 초기 데이터 검색
-//        fetchDataFromFirestore(db)
 
         // 실시간 업데이트를 위한 스냅샷 리스너 추가
         db.collection("items")
@@ -98,7 +96,8 @@ class HomeActivity : AppCompatActivity() {
                         val price = document.getString("price") ?: ""
                         val imageUrlList = document.get("images") as List<String>
                         val imageUrl = imageUrlList.firstOrNull() ?: ""
-                        addItemToList(title, date, price, imageUrl)
+                        val documentId = document.id
+                        addItemToList(title, date, price, imageUrl, documentId)
                     }
 
                     // 어댑터에 데이터 변경 알림
@@ -109,7 +108,7 @@ class HomeActivity : AppCompatActivity() {
         findViewById<Button>(R.id.addItemBtn)?.setOnClickListener {
             val intent = Intent(this@HomeActivity, ProductRegistrationActivity::class.java)
             startActivity(intent)
-            finish()
+//            finish()
         }
 
         // 로그아웃
@@ -127,27 +126,8 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun fetchDataFromFirestore(db: FirebaseFirestore) {
-        db.collection("items")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    val title = document.getString("title") ?: ""
-                    val date = document.getString("uploadTime") ?: ""
-                    val price = document.getString("price") ?: ""
-                    val imageUrlList = document.get("images") as List<String>
-                    val imageUrl = imageUrlList.firstOrNull() ?: ""
-                    addItemToList(title, date, price, imageUrl)
-                }
-                adapter.notifyDataSetChanged()
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "문서 가져오기 실패.", exception)
-            }
-    }
-
     // 아이템 추가 함수
-    private fun addItemToList(title: String, date: String, price: String, imageUrl: String) {
-        itemList.add(ListItem(title, date, price, imageUrl))
+    private fun addItemToList(title: String, date: String, price: String, imageUrl: String, documentId: String) {
+        itemList.add(ListItem(title, date, price, imageUrl, documentId))
     }
 }
