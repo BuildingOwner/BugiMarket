@@ -30,6 +30,7 @@ class ProductCorrectionActivity : AppCompatActivity() {
             finish()
         }
 
+
         val saleSwitch = findViewById<Switch>(R.id.sale_switch)
         val saleIndicator = findViewById<TextView>(R.id.sale_state_indicator)
         val imageRecyclerView = findViewById<RecyclerView>(R.id.recyclerview_image)
@@ -60,12 +61,14 @@ class ProductCorrectionActivity : AppCompatActivity() {
                         val title = document.getString("title") ?: ""
                         val price = document.getString("price") ?: ""
                         val explanation = document.getString("explanation") ?: ""
+                        val saleState = document.getBoolean("saleState") ?: false
                         val imageUrlList = document.get("images") as List<String>
 
                         // 각 필드에 데이터 설정
                         titleEditText.setText(title)
                         priceEditText.setText(price)
                         explanationEditText.setText(explanation)
+                        saleSwitch.isChecked = saleState
 
                         // 이미지 RecyclerView 설정
                         imageRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)

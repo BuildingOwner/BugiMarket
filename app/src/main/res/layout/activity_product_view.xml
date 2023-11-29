@@ -27,6 +27,7 @@
             android:textColor="@android:color/white"
             android:textSize="20sp" />
     </androidx.appcompat.widget.Toolbar>
+
     <LinearLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
