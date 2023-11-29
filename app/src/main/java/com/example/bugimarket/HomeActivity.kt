@@ -96,7 +96,8 @@ class HomeActivity : AppCompatActivity() {
                         val price = document.getString("price") ?: ""
                         val imageUrlList = document.get("images") as List<String>
                         val imageUrl = imageUrlList.firstOrNull() ?: ""
-                        addItemToList(title, date, price, imageUrl)
+                        val documentId = document.id
+                        addItemToList(title, date, price, imageUrl, documentId)
                     }
 
                     // 어댑터에 데이터 변경 알림
@@ -122,26 +123,6 @@ class HomeActivity : AppCompatActivity() {
                 Intent(this@HomeActivity, ViewMessageActivity::class.java)
             )
         }
-    }
-
-    private fun fetchDataFromFirestore(db: FirebaseFirestore) {
-        db.collection("items")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    val title = document.getString("title") ?: ""
-                    val date = document.getString("uploadTime") ?: ""
-                    val price = document.getString("price") ?: ""
-                    val imageUrlList = document.get("images") as List<String>
-                    val imageUrl = imageUrlList.firstOrNull() ?: ""
-                    val documentId = document.id
-                    addItemToList(title, date, price, imageUrl, documentId)
-                }
-                adapter.notifyDataSetChanged()
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "문서 가져오기 실패.", exception)
-            }
     }
 
     // 아이템 추가 함수
