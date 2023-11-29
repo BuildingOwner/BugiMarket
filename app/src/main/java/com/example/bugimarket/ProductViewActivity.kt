@@ -3,9 +3,11 @@ package com.example.bugimarket
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ProductViewActivity : AppCompatActivity() {
@@ -25,9 +27,15 @@ class ProductViewActivity : AppCompatActivity() {
         val explanationText = findViewById<TextView>(R.id.product_content_text)
         val uploadText = findViewById<TextView>(R.id.product_time_text)
         val userText = findViewById<TextView>(R.id.product_owner_text)
+        val viewPager = findViewById<ViewPager>(R.id.viewPager)
+
+        val saveButton: Button = findViewById(R.id.product_save_button)
+        saveButton.setOnClickListener {
+            val intent = Intent(this@ProductViewActivity, SendMessageActivity::class.java)
+            startActivity(intent)
+        }
 
         val documentId = intent.getStringExtra("documentId")
-        Log.d("ProductViewActivity", "documentId: $documentId")
 
         if (documentId != null) {
             val db = FirebaseFirestore.getInstance()
@@ -40,6 +48,8 @@ class ProductViewActivity : AppCompatActivity() {
                         val price = document.getString("price") ?: ""
                         val uploadTime = document.getString("uploadTime") ?: ""
                         val userId = document.getString("userId")
+                        val images = document.get("images") as? List<String> ?: emptyList()
+                        viewPager.adapter = ImageViewPagerAdapter(this, images)
 
                         titleText.setText(title)
                         priceText.setText(price+"원")

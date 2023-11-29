@@ -61,7 +61,7 @@ class ProductCorrectionActivity : AppCompatActivity() {
                         val title = document.getString("title") ?: ""
                         val price = document.getString("price") ?: ""
                         val explanation = document.getString("explanation") ?: ""
-                        val saleState = document.getBoolean("saleState") ?: false
+                        val saleState = document.getBoolean("saleState") ?: true
                         val imageUrlList = document.get("images") as List<String>
 
                         // 각 필드에 데이터 설정
