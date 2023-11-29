@@ -23,7 +23,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class ListItem(val title: String, val date: String, val price: String, val imageUrl: String)
+class ListItem(val userId: String, val title: String, val date: String, val price: String, val imageUrl: String)
 class ListAdapter(val itemList: List<ListItem>) :
     RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
@@ -46,13 +46,28 @@ class ListAdapter(val itemList: List<ListItem>) :
     }
 
     override fun onBindViewHolder(holder: ListAdapter.MyViewHolder, position: Int) {
-        holder.title.text = itemList[position].title
-        holder.date.text = itemList[position].date
-        holder.price.text = itemList[position].price
+        val item = itemList[position]
+        holder.title.text = item.title
+        holder.date.text = item.date
+        holder.price.text = item.price
 
         Glide.with(holder.image.context)
-            .load(itemList[position].imageUrl)
+            .load(item.imageUrl)
             .into(holder.image)
+
+        // 항목 클릭 리스너 설정
+        holder.itemView.setOnClickListener {
+            val currentUser = Firebase.auth.currentUser
+            if (currentUser != null && item.userId == currentUser.uid) {
+                // userId가 현재 로그인한 사용자의 ID와 같다면 ProductViewActivity로 이동
+                val intent = Intent(holder.itemView.context, ProductCorrectionActivity::class.java)
+                holder.itemView.context.startActivity(intent)
+            } else {
+                // userId가 현재 로그인한 사용자의 ID와 다르다면 ProductViewActivity로 이동
+                val intent = Intent(holder.itemView.context, ProductViewActivity::class.java)
+                holder.itemView.context.startActivity(intent)
+            }
+        }
     }
 
 }
@@ -80,12 +95,13 @@ class HomeActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
+                    val userId = document.getString("userId") ?: ""
                     val title = document.getString("title") ?: ""
                     val date = document.getString("uploadTime") ?: ""
                     val price = document.getString("price") ?: ""
                     val imageUrlList = document.get("images") as List<String>
                     val imageUrl = imageUrlList.firstOrNull() ?: ""
-                    addItemToList(title, date, price, imageUrl)
+                    addItemToList(userId, title, date, price, imageUrl)
                 }
                 adapter.notifyDataSetChanged()
             }
@@ -115,7 +131,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     // 아이템 추가 함수
-    private fun addItemToList(title: String, date: String, price: String, imageUrl: String) {
-        itemList.add(ListItem(title, date, price, imageUrl))
+    private fun addItemToList(userId: String, title: String, date: String, price: String, imageUrl: String) {
+        itemList.add(ListItem(userId, title, date, price, imageUrl))
     }
 }
