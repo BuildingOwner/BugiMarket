@@ -96,6 +96,7 @@ class HomeActivity : AppCompatActivity() {
         findViewById<Button>(R.id.addItemBtn)?.setOnClickListener {
             val intent = Intent(this@HomeActivity, ProductRegistrationActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         // 로그아웃
