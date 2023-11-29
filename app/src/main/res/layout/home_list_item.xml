@@ -32,7 +32,7 @@
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/listItemPrice"
         app:layout_constraintStart_toStartOf="@+id/listItemTitle"
-        app:layout_constraintTop_toBottomOf="@+id/listItemTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/isSelling" />
 
     <TextView
         android:id="@+id/listItemPrice"
@@ -42,4 +42,13 @@
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="@+id/listItemImage"
         app:layout_constraintStart_toStartOf="@+id/listItemDate" />
+
+    <TextView
+        android:id="@+id/isSelling"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/listItemDate"
+        app:layout_constraintStart_toStartOf="@+id/listItemTitle"
+        app:layout_constraintTop_toBottomOf="@+id/listItemTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,11 +23,11 @@
         tools:layout_editor_absoluteX="1dp">
 
         <Button
-            android:id="@+id/homeBtn"
+            android:id="@+id/filterBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="home" />
+            android:text="filter" />
 
         <Button
             android:id="@+id/addItemBtn"
