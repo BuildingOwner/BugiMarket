@@ -23,7 +23,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class ListItem(val title: String, val date: String, val price: String, val imageUrl: String)
+class ListItem(val docId: String, val title: String, val date: String, val price: String, val imageUrl: String, val userId: String)
 class ListAdapter(val itemList: List<ListItem>) :
     RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
@@ -53,8 +53,21 @@ class ListAdapter(val itemList: List<ListItem>) :
         Glide.with(holder.image.context)
             .load(itemList[position].imageUrl)
             .into(holder.image)
-    }
 
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            val currentUserId = Firebase.auth.currentUser?.uid
+            val itemUserId = itemList[position].userId
+
+            if (currentUserId == itemUserId) {
+                val intent = Intent(context, ProductViewActivity::class.java)
+                intent.putExtra("docId", itemList[position].docId)
+                context.startActivity(intent)
+            } else {
+                // TODO: 다른 액티비티로 이동하는 코드를 추가해주세요.
+            }
+        }
+    }
 }
 
 
@@ -80,12 +93,14 @@ class HomeActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
+                    val docId = document.id
                     val title = document.getString("title") ?: ""
                     val date = document.getString("uploadTime") ?: ""
                     val price = document.getString("price") ?: ""
                     val imageUrlList = document.get("images") as List<String>
                     val imageUrl = imageUrlList.firstOrNull() ?: ""
-                    addItemToList(title, date, price, imageUrl)
+                    val userId = document.getString("userId") ?: ""
+                    addItemToList(docId, title, date, price, imageUrl, userId)
                 }
                 adapter.notifyDataSetChanged()
             }
@@ -103,12 +118,10 @@ class HomeActivity : AppCompatActivity() {
             Firebase.auth.signOut()
             finish()
         }
-
-
     }
 
     // 아이템 추가 함수
-    private fun addItemToList(title: String, date: String, price: String, imageUrl: String) {
-        itemList.add(ListItem(title, date, price, imageUrl))
+    private fun addItemToList(docId: String, title: String, date: String, price: String, imageUrl: String, userId: String) {
+        itemList.add(ListItem(docId, title, date, price, imageUrl, userId))
     }
 }
