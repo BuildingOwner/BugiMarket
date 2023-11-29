@@ -61,7 +61,7 @@ class ProductCorrectionActivity : AppCompatActivity() {
                         val title = document.getString("title") ?: ""
                         val price = document.getString("price") ?: ""
                         val explanation = document.getString("explanation") ?: ""
-                        val saleState = document.getBoolean("saleState") ?: true
+                        val saleState = document.getBoolean("isSelling") ?: true
                         val imageUrlList = document.get("images") as List<String>
 
                         // 각 필드에 데이터 설정
@@ -82,7 +82,7 @@ class ProductCorrectionActivity : AppCompatActivity() {
                 val saleState = saleIndicator.text.toString() == "판매중"
                 val updates = hashMapOf<String, Any>(
                     "price" to price,
-                    "saleState" to saleState
+                    "isSelling" to saleState
                 )
                 db.collection("items").document(documentId)
                     .update(updates)

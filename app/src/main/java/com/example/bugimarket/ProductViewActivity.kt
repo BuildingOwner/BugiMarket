@@ -28,6 +28,7 @@ class ProductViewActivity : AppCompatActivity() {
         val uploadText = findViewById<TextView>(R.id.product_time_text)
         val userText = findViewById<TextView>(R.id.product_owner_text)
         val viewPager = findViewById<ViewPager>(R.id.viewPager)
+        val saleText = findViewById<TextView>(R.id.product_sale_text)
 
         val saveButton: Button = findViewById(R.id.product_save_button)
         saveButton.setOnClickListener {
@@ -48,6 +49,7 @@ class ProductViewActivity : AppCompatActivity() {
                         val price = document.getString("price") ?: ""
                         val uploadTime = document.getString("uploadTime") ?: ""
                         val userId = document.getString("userId")
+                        val isSelling = document.getBoolean("isSelling") ?: false
                         val images = document.get("images") as? List<String> ?: emptyList()
                         viewPager.adapter = ImageViewPagerAdapter(this, images)
 
@@ -55,6 +57,7 @@ class ProductViewActivity : AppCompatActivity() {
                         priceText.setText(price+"원")
                         explanationText.setText(explanation)
                         uploadText.setText(uploadTime)
+                        saleText.text = if (isSelling) "판매중" else "판매완료"
 
                         if (userId != null) {
                             db.collection("users").document(userId).get()
