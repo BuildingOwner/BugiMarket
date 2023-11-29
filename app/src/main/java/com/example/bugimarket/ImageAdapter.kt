@@ -29,7 +29,7 @@ class ImageAdapter(private val imageList: ArrayList<Uri>) :
             .load(currentItem)
             .into(holder.imageView)
 
-        // close 이미지에 클릭 리스너를 설정합니다.
+        // close 이미지에 클릭 리스너를 설정합니다. aaa
         holder.closeView.setOnClickListener {
             // 클릭 시 해당 아이템을 리스트에서 제거합니다.
             imageList.removeAt(position)
