@@ -23,7 +23,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class ListItem(val title: String, val date: String, val price: String, val imageUrl: String, val documentId: String)
+class ListItem(val title: String, val date: String, val price: String, val imageUrl: String, val userId: String, val documentId: String)
 class ListAdapter(val itemList: List<ListItem>) :
     RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
@@ -53,6 +53,27 @@ class ListAdapter(val itemList: List<ListItem>) :
         Glide.with(holder.image.context)
             .load(itemList[position].imageUrl)
             .into(holder.image)
+
+        // 아이템 클릭 시 새로운 액티비티로 이동
+        holder.itemView.setOnClickListener {
+            val currentUser = Firebase.auth.currentUser
+
+            val context = holder.itemView.context
+            if (currentUser != null && itemList[position].userId == currentUser.uid) {
+                val intent = Intent(context, ProductCorrectionActivity::class.java).apply {
+                    putExtra("documentId", itemList[position].documentId)
+                    // 추가로 전달할 데이터가 있다면 intent에 putExtra로 넣어줍니다.
+                }
+                context.startActivity(intent)
+            }
+            else{
+                val intent = Intent(context, ProductViewActivity::class.java).apply {
+                    putExtra("documentId", itemList[position].documentId)
+                    // 추가로 전달할 데이터가 있다면 intent에 putExtra로 넣어줍니다.
+                }
+                context.startActivity(intent)
+            }
+        }
     }
 
 }
@@ -96,8 +117,9 @@ class HomeActivity : AppCompatActivity() {
                         val price = document.getString("price") ?: ""
                         val imageUrlList = document.get("images") as List<String>
                         val imageUrl = imageUrlList.firstOrNull() ?: ""
+                        val userId = document.getString("userId") ?: ""
                         val documentId = document.id
-                        addItemToList(title, date, price, imageUrl, documentId)
+                        addItemToList(title, date, price, imageUrl, userId, documentId)
                     }
 
                     // 어댑터에 데이터 변경 알림
@@ -127,7 +149,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     // 아이템 추가 함수
-    private fun addItemToList(title: String, date: String, price: String, imageUrl: String, documentId: String) {
-        itemList.add(ListItem(title, date, price, imageUrl, documentId))
+    private fun addItemToList(title: String, date: String, price: String, imageUrl: String, userId: String, documentId: String) {
+        itemList.add(ListItem(title, date, price, imageUrl, userId, documentId))
     }
 }
