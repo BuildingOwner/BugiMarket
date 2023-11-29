@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.bugimarket.auth.LoginActivity
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -100,8 +99,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         // 로그아웃
-        val signOutBtn = findViewById<Button>(R.id.signOutBtn)
-        signOutBtn?.setOnClickListener {
+        findViewById<Button>(R.id.signOutBtn)?.setOnClickListener {
             Firebase.auth.signOut()
             finish()
         }
@@ -113,7 +111,6 @@ class HomeActivity : AppCompatActivity() {
                 Intent(this@HomeActivity, ViewMessageActivity::class.java)
             )
         }
-
     }
 
     // 아이템 추가 함수
