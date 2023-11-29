@@ -62,14 +62,12 @@ class ListAdapter(val itemList: List<ListItem>) :
             if (currentUser != null && itemList[position].userId == currentUser.uid) {
                 val intent = Intent(context, ProductCorrectionActivity::class.java).apply {
                     putExtra("documentId", itemList[position].documentId)
-                    // 추가로 전달할 데이터가 있다면 intent에 putExtra로 넣어줍니다.
                 }
                 context.startActivity(intent)
             }
             else{
                 val intent = Intent(context, ProductViewActivity::class.java).apply {
                     putExtra("documentId", itemList[position].documentId)
-                    // 추가로 전달할 데이터가 있다면 intent에 putExtra로 넣어줍니다.
                 }
                 context.startActivity(intent)
             }
