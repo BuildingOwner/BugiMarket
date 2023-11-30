@@ -1,4 +1,4 @@
-package com.example.chatproject
+package com.example.bugimarket
 
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +19,7 @@ class MessageAdapter(private var messages: List<Message>) :
         val message = messages[position]
         holder.textViewMessage.text = message.message
         holder.senderViewMessage.text = message.senderName
+        holder.senderViewTitle.text = message.title
     }
 
     override fun getItemCount(): Int {
@@ -33,5 +34,6 @@ class MessageAdapter(private var messages: List<Message>) :
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textViewMessage: TextView = itemView.findViewById(R.id.textViewMessage)
         val senderViewMessage: TextView = itemView.findViewById(R.id.textViewSender)
+        val senderViewTitle: TextView = itemView.findViewById(R.id.textViewTitle)
     }
 }

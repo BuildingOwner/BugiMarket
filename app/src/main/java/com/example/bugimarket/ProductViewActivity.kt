@@ -30,13 +30,15 @@ class ProductViewActivity : AppCompatActivity() {
         val viewPager = findViewById<ViewPager>(R.id.viewPager)
         val saleText = findViewById<TextView>(R.id.product_sale_text)
 
+        val documentId = intent.getStringExtra("documentId")
+
         val saveButton: Button = findViewById(R.id.product_save_button)
         saveButton.setOnClickListener {
-            val intent = Intent(this@ProductViewActivity, SendMessageActivity::class.java)
+            val intent = Intent(this@ProductViewActivity, SendMessageActivity::class.java).apply {
+                putExtra("documentId", documentId)
+            }
             startActivity(intent)
         }
-
-        val documentId = intent.getStringExtra("documentId")
 
         if (documentId != null) {
             val db = FirebaseFirestore.getInstance()

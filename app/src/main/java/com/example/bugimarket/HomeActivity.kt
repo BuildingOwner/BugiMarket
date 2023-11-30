@@ -165,7 +165,6 @@ class HomeActivity : AppCompatActivity() {
 
         val chatButton = findViewById<Button>(R.id.chatBtn)
         chatButton?.setOnClickListener {
-            Log.d("HomeActivity", "chatBtn clicked")
             startActivity(
                 Intent(this@HomeActivity, ViewMessageActivity::class.java)
             )
