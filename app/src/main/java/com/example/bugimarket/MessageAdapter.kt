@@ -1,4 +1,4 @@
-package com.example.bugimarket
+package com.example.chatproject
 
 import android.view.LayoutInflater
 import android.view.View
@@ -18,9 +18,7 @@ class MessageAdapter(private var messages: List<Message>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val message = messages[position]
         holder.textViewMessage.text = message.message
-        holder.senderViewMessage.text = "${message.sender}"
-
-        // Bind other views if needed
+        holder.senderViewMessage.text = message.senderName
     }
 
     override fun getItemCount(): Int {

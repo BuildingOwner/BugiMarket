@@ -1,4 +1,4 @@
-package com.example.bugimarket
+package com.example.chatproject
 
 import android.os.Bundle
 import android.widget.Button
@@ -6,9 +6,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.auth.FirebaseAuth
 
 class SendMessageActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,30 +27,31 @@ class SendMessageActivity : AppCompatActivity() {
             sendMessage()
         }
     }
-    private fun sendMessage() {
-        val sellerId = "sellerId" // 바꾸기
 
+
+    private fun sendMessage() {
+        val currentUser = auth.currentUser
+        val senderId = currentUser?.uid
+        val senderName = "senderName"
         val messageText: String = "구매하고 싶습니다"
 
-        val senderId = "senderId"
+        val messageData = hashMapOf(
+            "sender" to senderId,
+            "senderName" to senderName,
+            "message" to messageText
+        )
 
-        db.collection("sellers").document(sellerId)
-            .collection("messages")
-            .whereEqualTo("sender", senderId)
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                if (querySnapshot.isEmpty) {
-                    val message = Message(messageText, senderId)
-
-                    db.collection("sellers").document(sellerId)
-                        .collection("messages")
-                        .add(message)
+        if (senderId != null) {
+            db.collection("sellers").document("sellerId")
+                .collection("messages")
+                .add(messageData)
+                .addOnSuccessListener {
                     Toast.makeText(this, "판매자에게 메세지를 보냈습니다.", Toast.LENGTH_SHORT).show()
-
-                } else {
-                    Toast.makeText(this, "이미 메세지를 전송했습니다", Toast.LENGTH_SHORT).show()
                 }
-            }
+                .addOnFailureListener {
+                    Toast.makeText(this, "메세지 전송에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                }
+        }
     }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
