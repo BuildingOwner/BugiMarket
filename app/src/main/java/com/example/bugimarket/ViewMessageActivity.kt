@@ -1,4 +1,4 @@
-package com.example.bugimarket
+package com.example.chatproject
 
 import androidx.appcompat.widget.Toolbar
 import android.os.Bundle
@@ -14,8 +14,7 @@ import com.google.firebase.firestore.QuerySnapshot
 
 data class Message(
     val message: String,
-    val sender: String,
-    // Add other fields like timestamp if needed
+    val senderName: String,
 )
 class ViewMessageActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -54,14 +53,12 @@ class ViewMessageActivity : AppCompatActivity() {
                     if (it.type == DocumentChange.Type.ADDED) {
                         Message(
                             message = it.document.get("message").toString(),
-                            sender = it.document.get("sender").toString()
-                            // Add other fields if needed
+                            senderName = it.document.get("senderName").toString()
                         )
                     } else {
                         null
                     }
                 }
-
                 messageAdapter.updateData(messageList)
             }
         })
