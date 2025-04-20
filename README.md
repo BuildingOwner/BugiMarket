@@ -59,14 +59,6 @@
 - **개발 도구**: Android Studio
 - **Firebase 서비스**: Authentication, Firestore, Storage
 
-## 🚀 향후 계획
-
-- 검색 기능 구현
-- 카테고리별 상품 분류
-- 찜하기 기능 추가
-- 사용자 프로필 관리 기능 강화
-- 알림 시스템 구현
-
 ---
 
 © 2023 부기마켓. 모든 권리 보유.
