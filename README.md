@@ -58,7 +58,3 @@
 - **Android 버전**: Android 8.0 이상
 - **개발 도구**: Android Studio
 - **Firebase 서비스**: Authentication, Firestore, Storage
-
----
-
-© 2023 부기마켓. 모든 권리 보유.
